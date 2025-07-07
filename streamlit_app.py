@@ -34,7 +34,7 @@ else:
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '56Mn'])
 modo = st.radio("Modo:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
-tiempo_medicion = st.slider("⏲️ Tiempo de medición por cuadro (segundos)", 1, 360, 60) if modo == "Cuentas acumuladas" else 1
+tiempo_medicion = st.slider("⏲️ Tiempo de medición por cuadro (segundos)", 1, 60, 1) if modo == "Cuentas acumuladas" else 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 

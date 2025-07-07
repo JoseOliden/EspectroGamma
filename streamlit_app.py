@@ -20,7 +20,7 @@ radionuclidos = {
 # --- Parámetros del detector ---
 keV_por_canal = 0.5
 resolucion = 10
-canales = np.arange(0, 2048)
+canales = np.arange(0, 4096)
 energias = canales * keV_por_canal
 
 # --- Parámetros de tiempo y medición ---

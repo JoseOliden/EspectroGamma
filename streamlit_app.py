@@ -24,11 +24,11 @@ canales = np.arange(0, 2048)
 energias = canales * keV_por_canal
 
 # --- Parámetros de tiempo y medición ---
-t_actual = st.slider("⏱️ Tiempo desde la activación (minutos)", 0, 5000, 60)
+t_actual = st.slider("⏱️ Tiempo desde la activación (minutos)", 0, 500, 1)
 modo = st.radio("Modo de visualización:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
 tiempo_medicion = 60  # segundos
 if modo == "Cuentas acumuladas":
-    tiempo_medicion = st.slider("⏲️ Tiempo de medición (segundos)", 1, 3600, 60)
+    tiempo_medicion = st.slider("⏲️ Tiempo de medición (segundos)", 1, 360, 1)
 
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '56Mn'])
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)

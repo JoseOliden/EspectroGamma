@@ -22,7 +22,7 @@ canales = np.arange(0, 2048)
 energias = canales * keV_por_canal
 
 # --- Parámetros de simulación ---
-t_actual = st.slider("⏱️ Tiempo después de activación (minutos)", 0, 200000, 60)
+t_actual = st.slider("⏱️ Tiempo después de activación (minutos)", 0, 2000, 1)
 seleccion = st.multiselect("Selecciona los radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '24Na'])
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 

@@ -20,7 +20,7 @@ radionuclidos = {
 
 # --- Detector y resolución energética ---
 keV_por_canal = 0.5
-canales = np.arange(0, 2048)
+canales = np.arange(0, 4096)
 energias = canales * keV_por_canal
 
 detector = st.selectbox("Tipo de detector", ["HPGe", "NaI(Tl)"], index=0)
@@ -34,16 +34,16 @@ else:
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '56Mn'])
 modo = st.radio("Modo:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
-tiempo_medicion = st.slider("⏲️ Tiempo de medición por cuadro (segundos)", 1, 3600, 60) if modo == "Cuentas acumuladas" else 1
+tiempo_medicion = st.slider("⏲️ Tiempo de medición por cuadro (segundos)", 1, 360, 60) if modo == "Cuentas acumuladas" else 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 
 # --- Parámetros de animación ---
 col1, col2 = st.columns(2)
 with col1:
-    t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 10000, 3000)
+    t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 1000, 1)
 with col2:
-    paso_tiempo = st.slider("⏩ Paso entre cuadros (minutos)", 1, 500, 100)
+    paso_tiempo = st.slider("⏩ Paso entre cuadros (minutos)", 1, 50, 10)
 
 iniciar = st.button("▶️ Iniciar animación")
 

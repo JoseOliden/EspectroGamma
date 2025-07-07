@@ -50,22 +50,44 @@ iniciar = st.button("▶️ Iniciar animación")
 # --- Función para simular espectro en un instante ---
 def simular_espectro(t_actual):
     espectro = np.zeros_like(canales, dtype=float)
+
     for nuc in seleccion:
         datos = radionuclidos[nuc]
         energia = datos['E_kev']
         canal_central = int(energia / keV_por_canal)
         t12 = datos['t12_min']
+        
+        # Decaimiento y cuentas
         cps = np.exp(-np.log(2) * t_actual / t12) * 100
         cuentas = cps * tiempo_medicion if modo == "Cuentas acumuladas" else cps
+        
+        # Ensanchamiento (resolución)
         sigma = np.sqrt(a**2 + b * energia)
         pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2)
         espectro += pico
 
-    if fondo_continuo:
-        fondo = 5 + 30 * np.exp(-energias / 500)
-        fondo *= tiempo_medicion
-        espectro += fondo
+        # ✅ Fondo Compton
+        if fondo_continuo:
+            E = energia
+            EC = E / (1 + E / 511)  # borde Compton
+            canal_E = int(E / keV_por_canal)
+            canal_EC = int(EC / keV_por_canal)
+            
+            # Simula cola Compton decaída linealmente desde canal_EC a canal_E
+            if canal_EC < canal_E:
+                base = np.linspace(1, 0, canal_E - canal_EC)
+                altura = 0.15 * cuentas  # 15% del pico
+                compton = np.zeros_like(canales)
+                compton[canal_EC:canal_E] = altura * base
+                espectro += compton
 
+    # ✅ Ruido electrónico aleatorio bajo en todo el espectro
+    if fondo_continuo:
+        ruido_electronico = np.random.uniform(0, 2, size=canales.shape)
+        ruido_electronico *= tiempo_medicion * 0.05  # Escalado bajo
+        espectro += ruido_electronico
+
+    # ✅ Ruido Poisson
     if agregar_ruido:
         espectro = np.random.poisson(espectro)
 

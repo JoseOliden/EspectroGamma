@@ -2,33 +2,38 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Espectro Gamma en el Tiempo", layout="wide")
+st.set_page_config(page_title="Simulación de Espectro en Detector", layout="wide")
 
-st.title("📊 Simulación de Espectro Gamma en el Tiempo")
-st.markdown("Simula cómo se mide el espectro gamma en un detector después de una activación nuclear, en función del tiempo.")
+st.title("📟 Espectro Gamma Medido en el Detector")
+st.markdown("Este simulador muestra cómo un detector gamma mediría el espectro después de una activación, en términos de **cuentas por segundo** o **cuentas acumuladas**.")
 
-# --- Radionúclidos simulados (energía y vida media en minutos) ---
+# --- Parámetros de radionúclidos activados ---
 radionuclidos = {
     '198Au': {'E_kev': 411, 't12_min': 2.7 * 60},
     '60Co': {'E_kev': 1173, 't12_min': 1925 * 60},
     '24Na': {'E_kev': 1368, 't12_min': 15 * 60},
     '82Br': {'E_kev': 554, 't12_min': 35 * 60},
-    '28Al': {'E_kev': 1778.9, 't12_min': 2.24},
-    '56Mn': {'E_kev': 846.8, 't12_min': 2.58 * 60},
+    '28Al': {'E_kev': 1779, 't12_min': 2.24},
+    '56Mn': {'E_kev': 847, 't12_min': 2.58 * 60},
 }
 
-# --- Parámetros de detector ---
-resolucion = 10  # ancho de pico (en canales)
+# --- Parámetros del detector ---
 keV_por_canal = 0.5
+resolucion = 10
 canales = np.arange(0, 2048)
 energias = canales * keV_por_canal
 
-# --- Parámetros de simulación ---
-t_actual = st.slider("⏱️ Tiempo después de activación (minutos)", 0, 200, 1)
-seleccion = st.multiselect("Selecciona los radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '24Na'])
+# --- Parámetros de tiempo y medición ---
+t_actual = st.slider("⏱️ Tiempo desde la activación (minutos)", 0, 5000, 60)
+modo = st.radio("Modo de visualización:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
+tiempo_medicion = 60  # segundos
+if modo == "Cuentas acumuladas":
+    tiempo_medicion = st.slider("⏲️ Tiempo de medición (segundos)", 1, 3600, 60)
+
+seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '56Mn'])
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 
-# --- Simulación del espectro en ese tiempo ---
+# --- Simulación del espectro ---
 espectro = np.zeros_like(canales, dtype=float)
 
 for nuc in seleccion:
@@ -36,29 +41,35 @@ for nuc in seleccion:
     energia = datos['E_kev']
     canal_central = int(energia / keV_por_canal)
     t12 = datos['t12_min']
-    intensidad = np.exp(-np.log(2) * t_actual / t12) * 1000  # decaimiento
-
-    # Generar pico gaussiano
-    pico = intensidad * np.exp(-0.5 * ((canales - canal_central) / resolucion) ** 2)
+    
+    # Tasa de cuentas por segundo (decaimiento desde el tiempo 0)
+    cps = np.exp(-np.log(2) * t_actual / t12) * 100  # cps arbitraria
+    
+    # Cuentas en el intervalo de medición
+    cuentas = cps * tiempo_medicion if modo == "Cuentas acumuladas" else cps
+    
+    # Pico Gaussiano
+    pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / resolucion) ** 2)
     espectro += pico
 
-# --- Ruido Poisson ---
+# --- Agregar ruido ---
 if agregar_ruido:
     espectro = np.random.poisson(espectro)
 
 # --- Graficar espectro ---
 fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(energias, espectro, color='royalblue')
-ax.set_title(f"Espectro Gamma Simulado - {t_actual} minutos después de la activación")
+ax.plot(energias, espectro, color='teal')
+ax.set_title(f"Espectro Gamma Simulado - {modo} a {t_actual} minutos")
 ax.set_xlabel("Energía (keV)")
-ax.set_ylabel("Cuentas")
-ax.set_xlim(0, 1600)
+ax.set_ylabel("Cuentas" if modo == "Cuentas acumuladas" else "Cuentas por segundo (cps)")
+ax.set_xlim(0, 2000)
 ax.grid(True)
 st.pyplot(fig)
 
-# --- Tabla de información ---
-with st.expander("📋 Parámetros de los radionúclidos simulados"):
+# --- Mostrar tabla de radionúclidos seleccionados ---
+with st.expander("📋 Parámetros de radionúclidos"):
     for nuc in seleccion:
-        st.write(f"**{nuc}**: Energía pico = {radionuclidos[nuc]['E_kev']} keV, T½ = {radionuclidos[nuc]['t12_min']/60:.2f} h")
+        datos = radionuclidos[nuc]
+        st.write(f"**{nuc}** → {datos['E_kev']} keV, T½ = {datos['t12_min']/60:.2f} h")
 
-st.caption("Simulación educativa de espectros gamma para análisis por activación neutrónica.")
+st.caption("Simulación educativa del espectro gamma medido por un detector tras activación neutrónica.")

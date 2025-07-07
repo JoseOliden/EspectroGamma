@@ -13,6 +13,8 @@ radionuclidos = {
     '60Co': {'E_kev': 1173, 't12_min': 1925 * 60},
     '24Na': {'E_kev': 1368, 't12_min': 15 * 60},
     '82Br': {'E_kev': 554, 't12_min': 35 * 60},
+    '28Al': {'E_kev': 1778.9, 't12_min': 2.24},
+    '56Mn': {'E_kev': 846.8, 't12_min': 2.58 * 60},
 }
 
 # --- Parámetros de detector ---
@@ -22,7 +24,7 @@ canales = np.arange(0, 2048)
 energias = canales * keV_por_canal
 
 # --- Parámetros de simulación ---
-t_actual = st.slider("⏱️ Tiempo después de activación (minutos)", 0, 2000, 1)
+t_actual = st.slider("⏱️ Tiempo después de activación (minutos)", 0, 200, 1)
 seleccion = st.multiselect("Selecciona los radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '24Na'])
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 

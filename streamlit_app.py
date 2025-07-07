@@ -80,7 +80,12 @@ def simular_espectro(t_actual):
                 compton = np.zeros_like(canales)
                 compton[canal_EC:canal_E] = altura * base
                 espectro += compton
-
+        # ✅ Ruido de fondo ambiental (bajo nivel en todo el espectro)
+        if fondo_continuo:
+            fondo_ambiental = np.random.normal(loc=1.0, scale=0.5, size=len(canales))
+            fondo_ambiental = np.clip(fondo_ambiental, 0, None)  # evita valores negativos
+            fondo_ambiental *= tiempo_medicion * 0.2  # escala ajustable
+            espectro += fondo_ambiental
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:
         ruido_electronico = np.random.uniform(0, 2, size=canales.shape)

@@ -103,7 +103,7 @@ if iniciar:
     grafico = st.empty()
     espectro1 = simular_espectro(0)
     for t_min in range(0, t_max + 1, paso_tiempo):
-        espectro = simular_espectro(t_min)+espectro1
+        espectro += espectro1
         espectro1 = simular_espectro(t_min)
         
         fig, ax = plt.subplots(figsize=(10, 4))

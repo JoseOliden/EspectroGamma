@@ -9,13 +9,40 @@ st.title("📽️ Animación del Espectro Gamma en el Tiempo")
 st.markdown("Simula cómo cambia el espectro gamma después de la activación, mostrando el decaimiento de picos en el tiempo.")
 
 # --- Radionúclidos activados ---
+#radionuclidos = {
+#    '198Au': {'E_kev': 411, 't12_min': 2.7 * 60},
+#    '60Co': {'E_kev': 1173, 't12_min': 1925 * 60},
+#   '24Na': {'E_kev': 1368, 't12_min': 15 * 60},
+#    '82Br': {'E_kev': 554, 't12_min': 35 * 60},
+#    '28Al': {'E_kev': 1779, 't12_min': 2.24},
+#    '56Mn': {'E_kev': 847, 't12_min': 2.58 * 60},
+#}
+
 radionuclidos = {
-    '198Au': {'E_kev': 411, 't12_min': 2.7 * 60},
-    '60Co': {'E_kev': 1173, 't12_min': 1925 * 60},
-    '24Na': {'E_kev': 1368, 't12_min': 15 * 60},
-    '82Br': {'E_kev': 554, 't12_min': 35 * 60},
-    '28Al': {'E_kev': 1779, 't12_min': 2.24},
-    '56Mn': {'E_kev': 847, 't12_min': 2.58 * 60},
+    '198Au': {
+        't12_min': 2.7 * 60,
+        'gammas': [(411.8, 1.0)],
+    },
+    '60Co': {
+        't12_min': 1925 * 60,
+        'gammas': [(1173.2, 1.0), (1332.5, 1.0)],
+    },
+    '24Na': {
+        't12_min': 15 * 60,
+        'gammas': [(1368.6, 1.0), (2754.0, 0.99)],
+    },
+    '82Br': {
+        't12_min': 35 * 60,
+        'gammas': [(554.3, 1.0), (776.5, 0.75)],
+    },
+    '28Al': {
+        't12_min': 2.24,
+        'gammas': [(1778.9, 1.0)],
+    },
+    '56Mn': {
+        't12_min': 2.58 * 60,
+        'gammas': [(846.8, 1.0), (1810.7, 0.27), (2113.1, 0.14)],
+    },
 }
 
 # --- Detector y resolución energética ---
@@ -53,33 +80,33 @@ def simular_espectro(t_actual):
 
     for nuc in seleccion:
         datos = radionuclidos[nuc]
-        energia = datos['E_kev']
-        canal_central = int(energia / keV_por_canal)
         t12 = datos['t12_min']
-        
-        # Decaimiento y cuentas
-        cps = np.exp(-np.log(2) * t_actual / t12) * 100
-        cuentas = cps * tiempo_medicion if modo == "Cuentas acumuladas" else cps
-        
-        # Ensanchamiento (resolución)
-        sigma = np.sqrt(a**2 + b * energia)
-        pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2)
-        espectro += pico
+        gammas = datos['gammas']
 
-        # ✅ Fondo Compton
-        if fondo_continuo:
-            E = energia
-            EC = E / (1 + E / 511)  # borde Compton
-            canal_E = int(E / keV_por_canal)
-            canal_EC = int(EC / keV_por_canal)
-            
-            # Simula cola Compton decaída linealmente desde canal_EC a canal_E
-            if canal_EC < canal_E:
-                base = np.linspace(1, 0, canal_E - canal_EC)
-                altura = 0.15 * cuentas  # 15% del pico
-                compton = np.zeros_like(canales)
-                compton[canal_EC:canal_E] = altura * base
-                espectro += compton
+        # Decaimiento del radionúclido
+        actividad = np.exp(-np.log(2) * t_actual / t12) * 100
+
+        for energia, intensidad_relativa in gammas:
+            cuentas = actividad * intensidad_relativa
+            cuentas = cuentas * tiempo_medicion if modo == "Cuentas acumuladas" else cuentas
+
+            canal_central = int(energia / keV_por_canal)
+            sigma = np.sqrt(a**2 + b * energia)
+
+            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2)
+            espectro += pico
+
+            # Fondo Compton (opcional por línea)
+            if fondo_continuo:
+                EC = energia / (1 + energia / 511)
+                canal_E = int(energia / keV_por_canal)
+                canal_EC = int(EC / keV_por_canal)
+                if canal_EC < canal_E:
+                    base = np.linspace(1, 0, canal_E - canal_EC)
+                    altura = 0.15 * cuentas
+                    compton = np.zeros_like(canales)
+                    compton[canal_EC:canal_E] = altura * base
+                    espectro += compton
     # ✅ Ruido de fondo ambiental (bajo nivel en todo el espectro)
     if fondo_continuo:
         fondo_ambiental = np.random.normal(loc=1.0, scale=0.5, size=len(canales))

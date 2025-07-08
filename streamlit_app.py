@@ -90,8 +90,8 @@ def simular_espectro(t_actual):
             canal_central = int(energia / keV_por_canal)
             sigma = np.sqrt(a**2 + b * energia)
 
-            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) * f_a # Ajustable Mn
-            espectro += pico
+            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) 
+            espectro += pico * f_a # ajuste 
 
             # Fondo Compton (opcional por línea)
             if fondo_continuo:

@@ -144,9 +144,9 @@ if iniciar:
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)
-    energias1 = energias
-    espectro1 = espectro
-    ax.plot(energias1, espectro1, color='r')
+    energias2 = energias
+    espectro2 = espectro
+    ax.plot(energias2, espectro2, color='r')
     grafico.pyplot(fig)
     time.sleep(1.0)  # retardo entre cuadros (ajustable)
     for t_min in range(0, t_max + 1, paso_tiempo):
@@ -155,7 +155,7 @@ if iniciar:
         
         fig, ax = plt.subplots(figsize=(10, 4))
         ax.plot(energias, espectro, color='navy')
-        ax.plot(energias1, espectro1, color='r')
+        ax.plot(energias2, espectro2, color='r')
         ax.set_title(f"Espectro Gamma a {t_min} minutos")
         ax.set_xlabel("Energía (keV)")
         ax.set_ylabel("Cuentas")

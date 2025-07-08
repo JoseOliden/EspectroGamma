@@ -59,9 +59,9 @@ agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 # --- Parámetros de animación ---
 col1, col2 = st.columns(2)
 with col1:
-    t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 1000, 1)
+    t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)
 with col2:
-    paso_tiempo = st.slider("⏩ Paso entre cuadros (minutos)", 1, 50, 10)
+    paso_tiempo = st.slider("⏩ Paso entre cuadros (minutos)", 1, 5, 1)
 
 iniciar = st.button("▶️ Iniciar animación")
 

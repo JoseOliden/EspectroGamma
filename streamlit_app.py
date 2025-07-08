@@ -155,6 +155,7 @@ if iniciar:
         
         fig, ax = plt.subplots(figsize=(10, 4))
         ax.plot(energias, espectro, color='navy')
+        ax.plot(energias1, espectro1, color='r')
         ax.set_title(f"Espectro Gamma a {t_min} minutos")
         ax.set_xlabel("Energía (keV)")
         ax.set_ylabel("Cuentas")

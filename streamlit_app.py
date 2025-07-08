@@ -71,7 +71,7 @@ iniciar = st.button("▶️ Iniciar animación")
 def simular_espectro(t_actual, sel):
     espectro = np.zeros_like(canales, dtype=float)
 
-    for nuc in seleccion:
+    for nuc in sel:
         datos = radionuclidos[nuc]
         t12 = datos['t12_min']
         gammas = datos['gammas']

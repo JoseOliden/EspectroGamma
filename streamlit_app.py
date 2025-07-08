@@ -77,7 +77,7 @@ def simular_espectro(t_actual):
         if nuc == '56Mn':
             f_a = 0.1
         if nuc == '28Al':
-            f_a = 100
+            f_a = 10
         else:
             f_a = 1
             

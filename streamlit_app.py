@@ -140,7 +140,7 @@ if iniciar:
         ax.set_ylabel("Cuentas")
         ax.set_xlim(200, 2000)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
-        ax.set_ylim(0, max(100, 2400))
+        ax.set_ylim(0, max(100, 20000))
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)

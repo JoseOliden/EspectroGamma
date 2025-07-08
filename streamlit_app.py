@@ -9,15 +9,6 @@ st.title("📽️ Animación del Espectro Gamma en el Tiempo")
 st.markdown("Simula cómo cambia el espectro gamma después de la activación, mostrando el decaimiento de picos en el tiempo.")
 
 # --- Radionúclidos activados ---
-#radionuclidos = {
-#    '198Au': {'E_kev': 411, 't12_min': 2.7 * 60},
-#    '60Co': {'E_kev': 1173, 't12_min': 1925 * 60},
-#   '24Na': {'E_kev': 1368, 't12_min': 15 * 60},
-#    '82Br': {'E_kev': 554, 't12_min': 35 * 60},
-#    '28Al': {'E_kev': 1779, 't12_min': 2.24},
-#    '56Mn': {'E_kev': 847, 't12_min': 2.58 * 60},
-#}
-
 radionuclidos = {
     '198Au': {
         't12_min': 2.7 * 60,
@@ -140,7 +131,7 @@ if iniciar:
         ax.set_title(f"Espectro Gamma a {t_min} minutos")
         ax.set_xlabel("Energía (keV)")
         ax.set_ylabel("Cuentas" if modo == "Cuentas acumuladas" else "Cuentas por segundo (cps)")
-        ax.set_xlim(750, 1000)
+        ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
         ax.set_ylim(0, max(100, 2200))
         ax.grid(True)

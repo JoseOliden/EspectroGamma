@@ -85,7 +85,7 @@ def simular_espectro(t_actual):
             canal_central = int(energia / keV_por_canal)
             sigma = np.sqrt(a**2 + b * energia)
 
-            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) * 0.01 # Ajustable Mn
+            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) * 0.1 # Ajustable Mn
             espectro += pico
 
             # Fondo Compton (opcional por línea)
@@ -110,7 +110,7 @@ def simular_espectro(t_actual):
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:
         ruido_electronico = np.random.uniform(0, 2, size=canales.shape)
-        ruido_electronico *= tiempo_medicion * 0.9  # Escalado bajo
+        ruido_electronico *= tiempo_medicion * 0.3  # Escalado bajo
         espectro += ruido_electronico
 
     # ✅ Ruido Poisson

@@ -134,7 +134,7 @@ if iniciar:
         ax.set_title(f"Espectro Gamma a {t_min} minutos")
         ax.set_xlabel("Energía (keV)")
         ax.set_ylabel("Cuentas")
-        ax.set_xlim(800, 900)
+        ax.set_xlim(200, 2000)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
         ax.set_ylim(0, max(100, 2400))
         ax.grid(True)

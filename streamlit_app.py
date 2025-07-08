@@ -107,12 +107,12 @@ def simular_espectro(t_actual):
     if fondo_continuo:
         fondo_ambiental = np.random.normal(loc=1.0, scale=0.5, size=len(canales))
         fondo_ambiental = np.clip(fondo_ambiental, 0, None)  # evita valores negativos
-        fondo_ambiental *= tiempo_medicion * 0.2  # escala ajustable
+        fondo_ambiental *= tiempo_medicion * 0.3  # escala ajustable
         espectro += fondo_ambiental
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:
         ruido_electronico = np.random.uniform(0, 2, size=canales.shape)
-        ruido_electronico *= tiempo_medicion * 0.05  # Escalado bajo
+        ruido_electronico *= tiempo_medicion * 0.1  # Escalado bajo
         espectro += ruido_electronico
 
     # ✅ Ruido Poisson

@@ -51,6 +51,7 @@ else:
 
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['56Mn'])
+seleccion1 = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['28Al'])
 tiempo_medicion = 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
@@ -143,5 +144,7 @@ if iniciar:
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)
+
+
 
 st.caption("Desarrollado para simulación educativa de AAN.")

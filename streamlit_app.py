@@ -68,7 +68,7 @@ t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)
 iniciar = st.button("▶️ Iniciar animación")
 
 # --- Función para simular espectro en un instante ---
-def simular_espectro(t_actual):
+def simular_espectro(t_actual, sel):
     espectro = np.zeros_like(canales, dtype=float)
 
     for nuc in seleccion:

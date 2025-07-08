@@ -112,7 +112,7 @@ def simular_espectro(t_actual):
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:
         ruido_electronico = np.random.uniform(0, 2, size=canales.shape)
-        ruido_electronico *= tiempo_medicion * 0.5  # Escalado bajo
+        ruido_electronico *= tiempo_medicion * 0.9  # Escalado bajo
         espectro += ruido_electronico
 
     # ✅ Ruido Poisson
@@ -136,7 +136,7 @@ if iniciar:
         ax.set_ylabel("Cuentas")
         ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
-        ax.set_ylim(0, max(100, 2200))
+        ax.set_ylim(0, max(100, 2400))
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)

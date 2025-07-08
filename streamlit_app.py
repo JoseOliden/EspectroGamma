@@ -37,17 +37,21 @@ radionuclidos = {
 }
 
 # --- Detector y resolución energética ---
-keV_por_canal = 0.5
-canales = np.arange(0, 4096)
-energias = canales * keV_por_canal
+
 
 detector = st.selectbox("Tipo de detector", ["HPGe", "NaI(Tl)"], index=0)
 if detector == "HPGe":
     a = 1.5
     b = 0.001
+    keV_por_canal = 0.5
+    canales = np.arange(0, 4096)
 else:
     a = 4
     b = 0.01
+    keV_por_canal = 1.0
+    canales = np.arange(0, 2048)
+
+energias = canales * keV_por_canal
 
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['56Mn'])

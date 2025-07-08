@@ -144,7 +144,9 @@ if iniciar:
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)
-    ax.plot(energias, espectro, color='r')
+    energias1 = energias
+    espectro1 = espectro
+    ax.plot(energias1, espectro1, color='r')
     grafico.pyplot(fig)
     time.sleep(1.0)  # retardo entre cuadros (ajustable)
     for t_min in range(0, t_max + 1, paso_tiempo):

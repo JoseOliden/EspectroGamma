@@ -116,6 +116,6 @@ if iniciar:
         ax.set_ylim(0, max(100, 2000))
         ax.grid(True)
         grafico.pyplot(fig)
-        time.sleep(0.3)  # retardo entre cuadros (ajustable)
+        time.sleep(1.0)  # retardo entre cuadros (ajustable)
 
 st.caption("Desarrollado para simulación educativa de AAN.")

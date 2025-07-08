@@ -128,9 +128,9 @@ def simular_espectro(t_actual, sel):
 # --- Animación ---
 if iniciar:
     grafico = st.empty()
-    espectro1 = simular_espectro(0)
+    espectro1 = simular_espectro(0, seleccion)
     for t_min in range(0, t_max + 1, paso_tiempo):
-        espectro = simular_espectro(t_min)+ espectro1
+        espectro = simular_espectro(t_min, seleccion)+ espectro1
         espectro1 = espectro
         
         fig, ax = plt.subplots(figsize=(10, 4))
@@ -145,6 +145,20 @@ if iniciar:
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)
 
-
+    for t_min in range(0, t_max + 1, paso_tiempo):
+        espectro = simular_espectro(t_min, seleccion1)+ espectro1
+        espectro1 = espectro
+        
+        fig, ax = plt.subplots(figsize=(10, 4))
+        ax.plot(energias, espectro, color='navy')
+        ax.set_title(f"Espectro Gamma a {t_min} minutos")
+        ax.set_xlabel("Energía (keV)")
+        ax.set_ylabel("Cuentas")
+        ax.set_xlim(800, 900)
+        #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
+        ax.set_ylim(0, max(100, 200))
+        ax.grid(True)
+        grafico.pyplot(fig)
+        time.sleep(1.0)  # retardo entre cuadros (ajustable)
 
 st.caption("Desarrollado para simulación educativa de AAN.")

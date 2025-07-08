@@ -78,8 +78,7 @@ def simular_espectro(t_actual):
             f_a = 0.1
         if nuc == "28Al":
             f_a = 10
-        else:
-            f_a = 1
+        
             
         # Decaimiento del radionúclido
         actividad = np.exp(-np.log(2) * t_actual / t12) * 100

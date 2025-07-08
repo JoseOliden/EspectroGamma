@@ -74,7 +74,13 @@ def simular_espectro(t_actual):
         datos = radionuclidos[nuc]
         t12 = datos['t12_min']
         gammas = datos['gammas']
-
+        if nuc == "56Mn":
+            f_a = 0.1
+        if nuc == 28Al:
+             f_a = 1000
+        else:
+             f_a = 1
+            
         # Decaimiento del radionúclido
         actividad = np.exp(-np.log(2) * t_actual / t12) * 100
 
@@ -85,7 +91,7 @@ def simular_espectro(t_actual):
             canal_central = int(energia / keV_por_canal)
             sigma = np.sqrt(a**2 + b * energia)
 
-            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) * 0.1 # Ajustable Mn
+            pico = cuentas * np.exp(-0.5 * ((canales - canal_central) / sigma) ** 2) * f_a # Ajustable Mn
             espectro += pico
 
             # Fondo Compton (opcional por línea)

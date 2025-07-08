@@ -101,12 +101,14 @@ def simular_espectro(t_actual):
                 EC = energia / (1 + energia / 511)
                 canal_E = int(energia / keV_por_canal)
                 canal_EC = int(EC / keV_por_canal)
-                if canal_EC < canal_E:
-                    base = np.linspace(1, 0, canal_E - canal_EC)
-                    altura = 0.15 * cuentas
-                    compton = np.zeros_like(canales)
-                    compton[canal_EC:canal_E] = altura * base
-                    espectro += compton
+                if 0 <= canal_EC < canal_E <= len(canales):
+                    n = canal_E - canal_EC
+                    if n > 1:
+                        base = np.linspace(1, 0, n)
+                        altura = 0.15 * cuentas
+                        compton = np.zeros_like(canales)
+                        compton[canal_EC:canal_E] = altura * base
+                        espectro += compton
     # ✅ Ruido de fondo ambiental (bajo nivel en todo el espectro)
     if fondo_continuo:
         fondo_ambiental = np.random.normal(loc=1.0, scale=0.5, size=len(canales))

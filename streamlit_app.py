@@ -51,7 +51,7 @@ else:
 
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['198Au', '56Mn'])
-modo = st.radio("Modo:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
+#modo = st.radio("Modo:", ["Cuentas por segundo (cps)", "Cuentas acumuladas"], horizontal=True)
 #tiempo_medicion = st.slider("⏲️ Tiempo de medición por cuadro (segundos)", 1, 60, 1) if modo == "Cuentas acumuladas" else 1
 tiempo_medicion = 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
@@ -80,7 +80,7 @@ def simular_espectro(t_actual):
 
         for energia, intensidad_relativa in gammas:
             cuentas = actividad * intensidad_relativa
-            cuentas = cuentas * tiempo_medicion if modo == "Cuentas acumuladas" else cuentas
+            cuentas = cuentas * tiempo_medicion
 
             canal_central = int(energia / keV_por_canal)
             sigma = np.sqrt(a**2 + b * energia)
@@ -131,7 +131,7 @@ if iniciar:
         ax.plot(energias, espectro, color='navy')
         ax.set_title(f"Espectro Gamma a {t_min} minutos")
         ax.set_xlabel("Energía (keV)")
-        ax.set_ylabel("Cuentas" if modo == "Cuentas acumuladas" else "Cuentas por segundo (cps)")
+        ax.set_ylabel("Cuentas")
         ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
         ax.set_ylim(0, max(100, 2200))

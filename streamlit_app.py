@@ -113,7 +113,7 @@ def simular_espectro(t_actual, sel):
                         espectro += compton
     # ✅ Ruido de fondo ambiental (bajo nivel en todo el espectro)
     if fondo_continuo:
-        fondo_ambiental = np.random.normal(loc=1.0, scale=0.1, size=len(canales))
+        fondo_ambiental = np.random.normal(loc=1.0, scale=0.1, size=len(canales))*0
         fondo_ambiental = np.clip(fondo_ambiental, 0, None)  # evita valores negativos
         fondo_ambiental *= tiempo_medicion * 0.3  # escala ajustable
         espectro += fondo_ambiental

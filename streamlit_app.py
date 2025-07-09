@@ -59,7 +59,7 @@ seleccion1 = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.
 tiempo_medicion = 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
-paso_tiempo = 1
+paso_tiempo = 60
 
 # --- Parámetros de animación ---
 t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)

@@ -133,7 +133,7 @@ def simular_espectro(t_actual, sel):
 if iniciar:
     grafico = st.empty()
     espectro1, fondo = simular_espectro(0, seleccion)
-    for t_min in range(0, t_max + 1, paso_tiempo):
+    for t_min in range(0, 8*t_max + 1, paso_tiempo):
         espectro, fondo = simular_espectro(t_min, seleccion)
         espectro += espectro1
         espectro1 = espectro
@@ -155,7 +155,7 @@ if iniciar:
     grafico.pyplot(fig)
     time.sleep(0.5)  # retardo entre cuadros (ajustable)
     
-    for t_min in range(0, 2*t_max + 1, paso_tiempo):
+    for t_min in range(0, t_max + 1, paso_tiempo):
         espectro56Mn, fondo = simular_espectro(t_min + t_max, seleccion)
         espectro28Al, fondo_ambiental = simular_espectro(t_min, seleccion1)
         espectro = espectro56Mn + espectro28Al - fondo_ambiental +espectro1

@@ -158,7 +158,7 @@ if iniciar:
         #espectro56Mn = simular_espectro(t_min + t_max, seleccion)
         #espectro28Al = simular_espectro(t_min, seleccion1)
         #espectro = espectro56Mn + espectro28Al + espectro1
-        espectro = simular_espectro(t_min + t_max, seleccion1)+ espectro1
+        espectro = simular_espectro(t_min, seleccion1)+ espectro1
 
         espectro1 = espectro
         

@@ -56,13 +56,13 @@ energias = canales * keV_por_canal
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['56Mn'])
 seleccion1 = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['28Al'])
-tiempo_medicion = 60
+tiempo_medicion = 1
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
 paso_tiempo = 1
 
 # --- Parámetros de animación ---
-t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)
+t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 60, 1)
 
 #with col1:
 #    t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)
@@ -135,6 +135,7 @@ if iniciar:
     espectro1, fondo = simular_espectro(0, seleccion)
     for t_min in range(0, t_max + 1, paso_tiempo):
         espectro, fondo = simular_espectro(t_min, seleccion)
+        espectro += espectro1
         espectro1 = espectro
         
         fig, ax = plt.subplots(figsize=(10, 4))
@@ -157,7 +158,7 @@ if iniciar:
     for t_min in range(0, 2*t_max + 1, paso_tiempo):
         espectro56Mn, fondo = simular_espectro(t_min + t_max, seleccion)
         espectro28Al, fondo_ambiental = simular_espectro(t_min, seleccion1)
-        espectro = espectro56Mn + espectro28Al - fondo_ambiental
+        espectro = espectro56Mn + espectro28Al - fondo_ambiental +espectro1
         #espectro = simular_espectro(t_min, seleccion1)
 
         espectro1 = espectro

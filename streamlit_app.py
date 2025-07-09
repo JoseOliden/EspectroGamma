@@ -56,10 +56,10 @@ energias = canales * keV_por_canal
 # --- Controles de simulación ---
 seleccion = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['56Mn'])
 seleccion1 = st.multiselect("📡 Radionúclidos activados", list(radionuclidos.keys()), default=['28Al'])
-tiempo_medicion = 1
+tiempo_medicion = 60
 fondo_continuo = st.checkbox("Agregar fondo continuo", value=True)
 agregar_ruido = st.checkbox("Agregar ruido Poisson", value=True)
-paso_tiempo = 60
+paso_tiempo = 1
 
 # --- Parámetros de animación ---
 t_max = st.slider("⏱️ Tiempo máximo (minutos)", 10, 50, 1)

@@ -155,8 +155,8 @@ if iniciar:
     time.sleep(1.0)  # retardo entre cuadros (ajustable)
     
     for t_min in range(0, t_max + 1, paso_tiempo):
-        espectro56Mn = simular_espectro(t_min + tmax, seleccion1[1])
-        espectro28Al = simular_espectro(t_min + tmax, seleccion1[0])
+        espectro56Mn = simular_espectro(t_min + t_max, seleccion1[1])
+        espectro28Al = simular_espectro(t_min, seleccion1[0])
         espectro = espectro56Mn + espectro28Al + espectro1
         espectro1 = espectro
         

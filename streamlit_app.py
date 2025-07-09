@@ -82,7 +82,7 @@ def simular_espectro(t_actual, sel):
         if nuc == "56Mn":
             f_a = 0.03
         if nuc == "28Al":
-            f_a = 100
+            f_a = 200
         
             
         # Decaimiento del radionúclido
@@ -144,7 +144,7 @@ if iniciar:
         ax.set_ylabel("Cuentas")
         ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
-        ax.set_ylim(0, max(100, 250))
+        ax.set_ylim(0, max(100, 280))
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)
@@ -165,7 +165,7 @@ if iniciar:
         ax.set_ylabel("Cuentas")
         ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
-        ax.set_ylim(0, max(100, 250))
+        ax.set_ylim(0, max(100, 280))
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(1.0)  # retardo entre cuadros (ajustable)

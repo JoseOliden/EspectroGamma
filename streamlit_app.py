@@ -134,7 +134,7 @@ if iniciar:
     grafico = st.empty()
     espectro1 = simular_espectro(0, seleccion)
     for t_min in range(0, t_max + 1, paso_tiempo):
-        espectro = simular_espectro(t_min, seleccion) + espectro1
+        espectro = simular_espectro(t_min, seleccion) + 0*espectro1
         espectro1 = espectro
         
         fig, ax = plt.subplots(figsize=(10, 4))
@@ -158,7 +158,7 @@ if iniciar:
         #espectro56Mn = simular_espectro(t_min + t_max, seleccion)
         #espectro28Al = simular_espectro(t_min, seleccion1)
         #espectro = espectro56Mn + espectro28Al + espectro1
-        espectro = simular_espectro(t_min, seleccion1)+ espectro1
+        espectro = simular_espectro(t_min, seleccion1) + 0*espectro1
 
         espectro1 = espectro
         

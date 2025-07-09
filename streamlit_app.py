@@ -120,7 +120,7 @@ def simular_espectro(t_actual, sel):
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:
         ruido_electronico = np.random.uniform(0, 2, size=canales.shape)
-        ruido_electronico *= tiempo_medicion * 0.0001  # Escalado bajo
+        ruido_electronico *= tiempo_medicion * 0.0  # Escalado bajo
         espectro += ruido_electronico
 
     # ✅ Ruido Poisson

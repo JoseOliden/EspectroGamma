@@ -148,7 +148,7 @@ if iniciar:
         ax.set_ylim(0, 5)
         ax.grid(True)
         grafico.pyplot(fig)
-        time.sleep(0.5)  # retardo entre cuadros (ajustable)
+        time.sleep(0.300)  # retardo entre cuadros (ajustable)
     energias2 = energias
     espectro2 = espectro
     ax.plot(energias2, espectro2, color='r')
@@ -171,7 +171,7 @@ if iniciar:
         ax.set_ylabel("Cuentas")
         ax.set_xlim(800, 900)
         #ax.set_ylim(0, max(100, np.max(espectro) * 1.1))
-        ax.set_ylim(0, 5)
+        ax.set_ylim(0, 300)
         ax.grid(True)
         grafico.pyplot(fig)
         time.sleep(0.5)  # retardo entre cuadros (ajustable)

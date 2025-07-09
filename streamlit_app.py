@@ -80,7 +80,7 @@ def simular_espectro(t_actual, sel):
         t12 = datos['t12_min']
         gammas = datos['gammas']
         if nuc == "56Mn":
-            f_a = 0.03
+            f_a = 0.01
         if nuc == "28Al":
             f_a = 1000
         
@@ -115,7 +115,7 @@ def simular_espectro(t_actual, sel):
     if fondo_continuo:
         fondo_ambiental = np.random.normal(loc=1.0, scale=0.1, size=len(canales))*0
         fondo_ambiental = np.clip(fondo_ambiental, 0, None)  # evita valores negativos
-        fondo_ambiental *= tiempo_medicion * 0.3  # escala ajustable
+        fondo_ambiental *= tiempo_medicion * 0.1  # escala ajustable
         espectro += fondo_ambiental
     # ✅ Ruido electrónico aleatorio bajo en todo el espectro
     if fondo_continuo:

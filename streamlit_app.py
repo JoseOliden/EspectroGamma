@@ -125,7 +125,7 @@ def simular_espectro(t_actual, sel):
 
     # ✅ Ruido Poisson
     if agregar_ruido:
-        espectro = np.random.poisson(espectro)*0
+        #espectro = np.random.poisson(espectro)
 
     return espectro
 

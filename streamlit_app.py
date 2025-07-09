@@ -157,7 +157,7 @@ if iniciar:
     for t_min in range(0, 2*t_max + 1, paso_tiempo):
         espectro56Mn, fondo = simular_espectro(t_min + t_max, seleccion)
         espectro28Al, fondo_ambiental = simular_espectro(t_min, seleccion1)
-        espectro = espectro56Mn + espectro28Al + espectro1 - fondo_ambiental
+        espectro = espectro56Mn + espectro28Al - fondo_ambiental
         #espectro = simular_espectro(t_min, seleccion1)
 
         espectro1 = espectro

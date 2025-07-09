@@ -82,7 +82,7 @@ def simular_espectro(t_actual, sel):
         if nuc == "56Mn":
             f_a = 0.04
         if nuc == "28Al":
-            f_a = 10
+            f_a = 50
         
             
         # Decaimiento del radionúclido

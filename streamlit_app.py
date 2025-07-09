@@ -153,8 +153,11 @@ if iniciar:
     ax.plot(energias2, espectro2, color='r')
     grafico.pyplot(fig)
     time.sleep(1.0)  # retardo entre cuadros (ajustable)
+    
     for t_min in range(0, t_max + 1, paso_tiempo):
-        espectro = simular_espectro(t_min, seleccion1)+ espectro1
+        espectro56Mn = simular_espectro(t_min + tmax, seleccion1[0])
+        espectro28Al = simular_espectro(t_min + tmax, seleccion1[0])
+        espectro = espectro56Mn + espectro28Al + espectro1
         espectro1 = espectro
         
         fig, ax = plt.subplots(figsize=(10, 4))

@@ -165,6 +165,7 @@ if iniciar:
         espectro1 = espectro
         
         fig, ax = plt.subplots(figsize=(10, 4))
+        ax.set_yscale("log")
         ax.plot(energias, espectro, color='navy')
         ax.plot(energias2, espectro2, color='r')
         ax.set_title(f"Espectro Gamma a {t_min} minutos")

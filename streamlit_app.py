@@ -107,7 +107,7 @@ def simular_espectro(t_actual, sel):
                     n = canal_E - canal_EC
                     if n > 1:
                         base = np.linspace(1, 0, n)
-                        altura = 0.1 * cuentas
+                        altura = 0.01 * cuentas
                         compton = np.zeros_like(canales)
                         compton[canal_EC:canal_E] = altura * base
                         espectro += compton
